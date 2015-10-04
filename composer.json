@@ -1,0 +1,21 @@
+{
+    "name": "spitzgoby/kjb_password_generator",
+    "description": "Generates random passwords based on the contents of the King James Bible",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Thomas Leu",
+            "email": "tomleu@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=5.6.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "KJBPasswordGenerator\\": "src/"
+        }
+    }
+}

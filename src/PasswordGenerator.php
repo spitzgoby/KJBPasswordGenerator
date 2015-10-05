@@ -19,7 +19,7 @@ namespace KJBPasswordGenerator;
       */
      static private function getWords() {
        if (self::$words == null) {
-         self::$words = file("../resources/kjb_stripped.txt");
+         self::$words = file("resources/kjb_stripped.txt");
        }
        return self::$words;
      }
@@ -140,9 +140,8 @@ namespace KJBPasswordGenerator;
      *                 used within the array.
      */
     static public function generatePassword($options) {
-      echo "Generating password";
       self::validateOptionsAndSetDefaults($options);
-      self::__generatePassword(self::$words,
+      return self::__generatePassword(self::getWords(),
         $options[self::OPTION_WORD_COUNT],
         $options[self::OPTION_USE_SYMBOL],
         $options[self::OPTION_USE_NUMBER],

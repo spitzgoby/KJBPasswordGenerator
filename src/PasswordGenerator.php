@@ -77,10 +77,18 @@ namespace KJBPasswordGenerator;
      */
     const DEFAULT_USE_HYPHENS = true;
 
-    /***************************
-     *** PASSWORD GENERATION ***
-     ***************************/
 
+    /************************
+     *** VALIDATE OPTIONS ***
+     ************************/
+
+     /**
+      * Validates the password generation options passed by calling invidual
+      * option validation functions. If an option is invalid the value will
+      * set to its default value by altering the original array of options.
+      *
+      * @param The password generation options to be validated
+      */
      private static function validateOptionsAndSetDefaults(&$options) {
        if (empty($options)) {
          $options = [];
@@ -110,6 +118,9 @@ namespace KJBPasswordGenerator;
      /**
       * Validates the word count option passed to generate a password. A valid
       * word count is a positive integer.
+      *
+      * @param $wordCount The word count to be validated.
+      * @return true if the word count is valid or false otherwise.
       */
      private static function validateWordCount($wordCount) {
        return is_integer($wordCount) && $wordCount > 0;
@@ -118,6 +129,9 @@ namespace KJBPasswordGenerator;
      /**
       * Validates options concerning adding additional characters to the
       * password. Valid values are booleans or single character strings.
+      *
+      * @param $useOption The character use option to be validated.
+      * @return true if the option is valid or false otherwise.
       */
      private static function validateUseCharOption($useOption) {
        return (is_bool($useOption) || // boolean value
@@ -127,10 +141,18 @@ namespace KJBPasswordGenerator;
      /**
       * Validates the hyphenation option for generating a password. Valid values
       * are true or false.
+      *
+      * @param $useHyphens The hypenation option to be validated.
+      * @return true if the option is valid or false otherwise.
       */
      private static function validateUseHyphens($useHyphens) {
        return is_bool($useHyphens);
      }
+
+
+    /***************************
+     *** PASSWORD GENERATION ***
+     ***************************/
 
     /**
      * Generates a new, random password based on the options provided.
@@ -138,6 +160,7 @@ namespace KJBPasswordGenerator;
      * @param $options An array of options for password generation. See the
      *                 class documentation for the keys and values that can be
      *                 used within the array.
+     * @return A newly generated password string.
      */
     static public function generatePassword($options) {
       self::validateOptionsAndSetDefaults($options);
@@ -148,6 +171,20 @@ namespace KJBPasswordGenerator;
         $options[self::OPTION_USE_HYPHENS]);
     }
 
+    /**
+     * Creats a new string object and appends words, symbols, numbers, and
+     * hyphens as dictated by the options passed to it.
+     *
+     * @param $words An array of words to use in password generation.
+     * @param $wordCount The number of words to be used in the password.
+     * @param $addSymbol Either a boolean instructing the generator to include
+     *  the '@' symbol or a character to be appended to the password.
+     * @param $addNumber Either a boolean instructing the generator to include
+     *  a random integer or a character to be appended to the password.
+     * @param $addHyphens A boolean instructing the generator whether to include
+     *  hyphens between words.
+     * @return A newly created password string.
+     */
     static private function __generatePassword($words, $wordCount, $addSymbol, $addNumber, $addHyphens) {
       $password = "";
       srand();

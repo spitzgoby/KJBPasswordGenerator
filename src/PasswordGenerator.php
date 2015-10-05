@@ -104,12 +104,12 @@ namespace KJBPasswordGenerator;
        }
 
        // validate use symbol option or set to default
-       if (!isset($options[self::OPTION_USE_SYMBOL]) || !self::validateUseCharOption($options[self::OPTION_USE_SYMBOL])) {
+       if (!isset($options[self::OPTION_USE_SYMBOL]) || !self::validateUseSymbolOption($options[self::OPTION_USE_SYMBOL])) {
          $options[self::OPTION_USE_SYMBOL] = self::DEFAULT_USE_SYMBOL;
        }
 
        // validate use number of set to default
-       if (!isset($options[self::OPTION_USE_NUMBER]) || !self::validateUseCharOption($options[self::OPTION_USE_NUMBER])) {
+       if (!isset($options[self::OPTION_USE_NUMBER]) || !self::validateUseNumberOption($options[self::OPTION_USE_NUMBER])) {
          $options[self::OPTION_USE_NUMBER] = self::DEFAULT_USE_NUMBER;
        }
 
@@ -131,15 +131,29 @@ namespace KJBPasswordGenerator;
      }
 
      /**
-      * Validates options concerning adding additional characters to the
-      * password. Valid values are booleans or single character strings.
-      *
-      * @param $useOption The character use option to be validated.
+      * Validates the use symbol option passed to generate a password. A valid
+      * use symbol option is either a boolean or a string.
+      * @param $useSymbol The use symbol option value to be validated.
       * @return true if the option is valid or false otherwise.
       */
-     private static function validateUseCharOption($useOption) {
-       return (is_bool($useOption) || // boolean value
-        (is_string($useOption) && strlen($useOption) == 1)); // single character string
+     private static function validateUseSymbolOption($useSymbol) {
+       return (is_bool($useSymbol) || (is_string($useSymbol)));
+     }
+
+     /**
+      * Validates the use number option passed to generate a password. A valid
+      * use number option is a boolean, an integer, or a string representing an
+      * integer value.
+      *
+      * @param $useNumber The use number option value to be validated.
+      * @return true if the option is valid or false otherwise.
+      */
+     private static function validateUseNumberOption($useNumber) {
+       $isBoolean = is_bool($useNumber);
+       $isInteger = false;
+       if (is_string($useNumber) && ctype_digit($useNumber)) $isInteger = true;
+       if (is_integer($useNumber)) $isInteger = true;
+       return $isBoolean || $isInteger;
      }
 
      /**
@@ -190,22 +204,32 @@ namespace KJBPasswordGenerator;
      * @return A newly created password string.
      */
     static private function __generatePassword($words, $wordCount, $addSymbol, $addNumber, $addHyphens) {
+      // Pick {$wordCount} random words from array
       $password = "";
       srand();
       for ($i = 0; $i < $wordCount; $i++) {
         $wordIndex = rand(0, count($words) - 1);
         $password = $password . trim($words[$wordIndex]);
-        if ($addHyphens && $i < $wordCount - 1) {
+        // Add hyphens in between words
+        if ($addHyphens && $i < $wordCount - 1) { // hyphens should be added AND this is not the last word in the password
           $password = $password . "-";
         }
       }
-
+      // Add symbol if needed
       if ($addSymbol) {
-        $password = $password . "@";
+        if (is_bool($addSymbol)) {
+          $password = $password .self::DEFAULT_SYMBOL;
+        } else {
+          $password = $password .$addSymbol;
+        }
       }
-
+      // Add number if needed
       if ($addNumber) {
-        $password = $password . rand(0, 9);
+        if (is_integer($addNumber) || is_string($addNumber)) {
+          $password = $password .$addNumber;
+        } else {
+          $password = $password .rand(0, 9);
+        }
       }
 
       return $password;

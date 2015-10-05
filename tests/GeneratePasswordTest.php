@@ -129,6 +129,7 @@ class GeneratePasswordTest extends PHPUnit_Framework_TestCase {
     $multicharacterSymbol = "#$";
     $options = [kjbpwg::OPTION_USE_SYMBOL => $multicharacterSymbol];
     $password = kjbpwg::generatePassword($options);
+    $this->assertNotEquals(0, substr_count($password, $multicharacterSymbol), "Password should contain {$multicharacterSymbol}\n");
   }
 
   public function testPasswordGeneratedWithTrueOptionUsesDefaultSymbolValue() {

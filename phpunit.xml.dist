@@ -8,8 +8,12 @@ http://stackoverflow.com/questions/15710410/autoloading-classes-in-phpunit-using
 
   <testsuites>
     <testsuite name="kjb-tests">
-      <directory>./tests</directory>
+      <directory>./tests/</directory>
     </testsuite>
   </testsuites>
+  <php>
+    <ini name="display_errors" value="On" />
+    <ini name="display_startup_errors" value="On" />
+  </php>
 
 </phpunit>

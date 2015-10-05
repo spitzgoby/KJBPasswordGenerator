@@ -5,15 +5,18 @@ http://stackoverflow.com/questions/15710410/autoloading-classes-in-phpunit-using
 <!-- KJB Password Generator Unit Tests -->
 <!-- Use composer's autoload to bootstrap tests -->
 <phpunit bootstrap="./vendor/autoload.php">
+  <php>
+    <ini name="display_errors" value="On" />
+    <ini name="display_startup_errors" value="On" />
+  </php>
+  <logging>
+    <log type="json" target="./tmp/log.json" />
+  </logging>
 
   <testsuites>
     <testsuite name="kjb-tests">
       <directory>./tests/</directory>
     </testsuite>
   </testsuites>
-  <php>
-    <ini name="display_errors" value="On" />
-    <ini name="display_startup_errors" value="On" />
-  </php>
 
 </phpunit>

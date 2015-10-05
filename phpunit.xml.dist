@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Adapted from code originally found on
+http://stackoverflow.com/questions/15710410/autoloading-classes-in-phpunit-using-composer-and-autoload-php -->
+
+<!-- KJB Password Generator Unit Tests -->
+<!-- Use composer's autoload to bootstrap tests -->
+<phpunit bootstrap="./vendor/autoload.php">
+
+  <testsuites>
+    <testsuite name="kjb-tests">
+      <directory>./tests</directory>
+    </testsuite>
+  </testsuites>
+
+</phpunit>

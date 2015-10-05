@@ -69,6 +69,10 @@ namespace KJBPasswordGenerator;
      */
     const DEFAULT_USE_SYMBOL = false;
     /**
+     * By default the '@' symbol will be added to passwords
+     */
+    const DEFAULT_SYMBOL = '@';
+    /**
      * By default numbers will not be added to the password.
      */
     const DEFAULT_USE_NUMBER = false;
@@ -162,7 +166,7 @@ namespace KJBPasswordGenerator;
      *                 used within the array.
      * @return A newly generated password string.
      */
-    static public function generatePassword($options) {
+    static public function generatePassword($options = null) {
       self::validateOptionsAndSetDefaults($options);
       return self::__generatePassword(self::getWords(),
         $options[self::OPTION_WORD_COUNT],

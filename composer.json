@@ -1,5 +1,5 @@
 {
-    "name": "spitzgoby/kjb_password_generator",
+    "name": "spitzgoby/kjbpw",
     "description": "Generates random passwords based on the contents of the King James Bible",
     "type": "library",
     "license": "MIT",

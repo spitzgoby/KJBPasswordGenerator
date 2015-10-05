@@ -83,6 +83,10 @@
      ***************************/
 
      private static function validateOptionsAndSetDefaults(&$options) {
+       if (empty($options)) {
+         $options = [];
+       }
+
        // validate word count or set to default
        if (!isset($options[self::OPTION_WORD_COUNT]) || !self::validateWordCount($options[self::OPTION_WORD_COUNT])) {
          $options[self::OPTION_WORD_COUNT] = self::DEFAULT_WORD_COUNT;
@@ -137,12 +141,13 @@
      *                 used within the array.
      */
     static public function generatePassword($options) {
+      echo "Generating password";
       self::validateOptionsAndSetDefaults($options);
       self::generatePassword(self::$words,
-        $options[this->OPTION_WORD_COUNT],
-        $options[this->OPTION_USE_SYMBOL],
-        $options[this->OPTION_USE_NUMBER],
-        $options[this->OPTION_USE_HYPHENS]);
+        $options[self::OPTION_WORD_COUNT],
+        $options[self::OPTION_USE_SYMBOL],
+        $options[self::OPTION_USE_NUMBER],
+        $options[self::OPTION_USE_HYPHENS]);
     }
 
     static private function generatePassword($words, $wordCount, $addSymbol, $addNumber, $addHyphens) {

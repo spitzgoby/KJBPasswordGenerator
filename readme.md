@@ -12,7 +12,7 @@ Installation
 1. Add `spitzgoby/kjbpw` to `composer.json` requirements section
 ```json
 "require": {
-     "spitzgoby/kjbpw"
+     "spitzgoby/kjbpw": "1.0.0"
 }
 ```
 2. Run `composer install`
@@ -23,8 +23,8 @@ Usage
 The password generator can be invoked statically using default options  
 ```php
 // Use password generator with default options
-use KJBPasswordGenerator\PasswordGenerator as kjbpwg;
-$password = kjbpwg::generatePassword();
+use KJBPasswordGenerator\PasswordGenerator as kjbpw;
+$password = kjbpw::generatePassword();
 echo $password;
 
 // Sample Output: grey-ministering-shoelatchet
@@ -34,10 +34,10 @@ echo $password;
 Alternatively, an array of options can be passed to alter the generation
 ```php
 // Use password generator with word count and symbol options
-use KJBPasswordGenerator\PasswordGenerator as kjbpwg;
-$options = [kjbpwg::OPTION_WORD_COUNT => 3,
-            kjbpwg::OPTION_USE_SYMBOL => '!'];
-$password = kjbpwg::generatePassword($options);
+use KJBPasswordGenerator\PasswordGenerator as kjbpw;
+$options = [kjbpw::OPTION_WORD_COUNT => 3,
+            kjbpw::OPTION_USE_SYMBOL => '!'];
+$password = kjbpw::generatePassword($options);
 echo $password;
 
 // Sample Output: Shelemiah-father-Sibbechai!

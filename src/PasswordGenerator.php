@@ -1,6 +1,5 @@
-<? php
-
-  namespace KJBPasswordGenerator;
+<?php
+namespace KJBPasswordGenerator;
 
   class PasswordGenerator
   {
@@ -18,11 +17,11 @@
      /**
       * @return An array of words from the King James Bible.
       */
-     static private getWords() {
+     static private function getWords() {
        if (self::$words == null) {
          self::$words = file("../resources/kjb_stripped.txt");
        }
-       return self::$words
+       return self::$words;
      }
 
     /***********************************
@@ -34,49 +33,49 @@
      * The value for this key must be a positive integer or the default
      * value of 4 will be used.
      */
-    public const OPTION_WORDCOUNT = 'wordCount';
+    const OPTION_WORD_COUNT = 'wordCount';
     /**
      * Determines whether the password should include a special symbol. The
      * value for this key can be either a boolean expression, in which case the
      * '@' symbol will be used, or a character literal to be added to the end
      * of the genereated password.
      */
-    public const OPTION_USE_SYMBOL = 'useSymbol';
+    const OPTION_USE_SYMBOL = 'useSymbol';
     /**
      * Determines whether the password should include a numeric character. The
      * value for this key can be either a boolean expression, in which case a
      * random digit will be used, or a character literal to be added to the end
      * of the generated password.
      */
-    public const OPTION_USE_NUMBER = 'useNumber';
+    const OPTION_USE_NUMBER = 'useNumber';
     /**
      * Determines whether the password should contain hyphens between words. The
      * value for this key should be a boolean value.
     */
-    public const OPTION_USE_HYPHENS = 'useHyphens';
+    const OPTION_USE_HYPHENS = 'useHyphens';
     /**
      * Determines the seed value for the selection of random words. Set this
      * value if you want to have determinstic password creation. No seeding will
      * be done if this value is not set.
      */
-    private const OPTION_SEED_VALUE = 'seedValue'; // currently does nothing
+    const OPTION_SEED_VALUE = 'seedValue'; // currently does nothing
 
     /**
      * By default the password will be 4 words long.
      */
-    private const DEFAULT_WORD_COUNT = 4;
+    const DEFAULT_WORD_COUNT = 4;
     /**
      * By default symbols will not be added to the password.
      */
-    private const DEFAULT_USE_SYMBOL = false;
+    const DEFAULT_USE_SYMBOL = false;
     /**
      * By default numbers will not be added to the password.
      */
-    private const DEfAULT_USE_NUMBER = false;
+    const DEFAULT_USE_NUMBER = false;
     /**
      * By default hypehns will be used in between words.
      */
-    private const DEFAULT_USE_HYPHENS = true;
+    const DEFAULT_USE_HYPHENS = true;
 
     /***************************
      *** PASSWORD GENERATION ***
@@ -122,7 +121,7 @@
       */
      private static function validateUseCharOption($useOption) {
        return (is_bool($useOption) || // boolean value
-        (is_string($useOption) && strlen($useOption) == 1)) // single character string
+        (is_string($useOption) && strlen($useOption) == 1)); // single character string
      }
 
      /**
@@ -143,14 +142,14 @@
     static public function generatePassword($options) {
       echo "Generating password";
       self::validateOptionsAndSetDefaults($options);
-      self::generatePassword(self::$words,
+      self::__generatePassword(self::$words,
         $options[self::OPTION_WORD_COUNT],
         $options[self::OPTION_USE_SYMBOL],
         $options[self::OPTION_USE_NUMBER],
         $options[self::OPTION_USE_HYPHENS]);
     }
 
-    static private function generatePassword($words, $wordCount, $addSymbol, $addNumber, $addHyphens) {
+    static private function __generatePassword($words, $wordCount, $addSymbol, $addNumber, $addHyphens) {
       $password = "";
       srand();
       for ($i = 0; $i < $wordCount; $i++) {

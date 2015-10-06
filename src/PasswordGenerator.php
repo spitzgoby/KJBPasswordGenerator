@@ -1,5 +1,5 @@
 <?php
-namespace KJBPasswordGenerator;
+namespace Spitzgoby\KJBPasswordGenerator;
 
   class PasswordGenerator
   {

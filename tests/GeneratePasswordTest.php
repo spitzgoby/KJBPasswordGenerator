@@ -1,6 +1,6 @@
 <?php
 
-use KJBPasswordGenerator\PasswordGenerator as kjbpw;
+use Spitzgoby\KJBPasswordGenerator\PasswordGenerator as kjbpw;
 
 class GeneratePasswordTest extends PHPUnit_Framework_TestCase {
   /**

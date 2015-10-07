@@ -19,7 +19,8 @@ namespace Spitzgoby\KJBPasswordGenerator;
       */
      static private function getWords() {
        if (self::$words == null) {
-         self::$words = file("resources/kjb_stripped.txt");
+         $kjbFilePath = dirname(__DIR__)."/resources/kjb_stripped.txt";
+         self::$words = file($kjbFilePath);
        }
        return self::$words;
      }

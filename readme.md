@@ -9,10 +9,13 @@ The KJB Password Generator uses words from the King James Bible to generate an
 Installation
 ------------
 ### Using [Composer](https://getcomposer.org/) ###
+#### NOTE ####
+Versions prior to `1.0.2` will cause a stream error due to an improper path
+name.
 1. Add `spitzgoby/kjbpw` to `composer.json` requirements section
 ```json
 "require": {
-     "spitzgoby/kjbpw": "1.0.0"
+     "spitzgoby/kjbpw": ">= 1.0.2"
 }
 ```
 2. Run `composer install`
